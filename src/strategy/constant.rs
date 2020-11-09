@@ -1,3 +1,5 @@
+//! constant time backoff
+//!
 use std::time::Duration;
 
 #[derive(Debug)]
