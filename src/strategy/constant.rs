@@ -55,10 +55,18 @@ impl Iterator for ConstantBackoff {
 mod test {
     use super::*;
     #[test]
-    fn returns_some_fixed() {
+    fn fixed() {
         let mut s = ConstantBackoff::new(Duration::from_millis(100));
         assert_eq!(s.next(), Some(Duration::from_millis(100)));
         assert_eq!(s.next(), Some(Duration::from_millis(100)));
         assert_eq!(s.next(), Some(Duration::from_millis(100)));
+    }
+
+    #[test]
+    fn fixed_secs() {
+        let mut s = ConstantBackoff::new(Duration::from_secs(1));
+        assert_eq!(s.next(), Some(Duration::from_secs(1)));
+        assert_eq!(s.next(), Some(Duration::from_secs(1)));
+        assert_eq!(s.next(), Some(Duration::from_secs(1)));
     }
 }

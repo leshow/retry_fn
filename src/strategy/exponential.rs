@@ -65,7 +65,7 @@ impl Iterator for ExponentialBackoff {
 mod test {
     use super::*;
     #[test]
-    fn returns_some_fixed() {
+    fn doubles() {
         let mut s = ExponentialBackoff::from_millis(100);
         assert_eq!(s.next(), Some(Duration::from_millis(200)));
         assert_eq!(s.next(), Some(Duration::from_millis(400)));
@@ -73,7 +73,7 @@ mod test {
     }
 
     #[test]
-    fn returns_some_more() {
+    fn tens() {
         let mut s = ExponentialBackoff::from_millis(100).base(10);
         assert_eq!(s.next(), Some(Duration::from_millis(1000)));
         assert_eq!(s.next(), Some(Duration::from_millis(10000)));
@@ -81,7 +81,7 @@ mod test {
     }
 
     #[test]
-    fn returns_max() {
+    fn hits_max() {
         let mut s = ExponentialBackoff::from_millis(100)
             .base(10)
             .max(Duration::from_millis(1_000_000));
