@@ -8,7 +8,7 @@ retry libraries out there, this is up-to-date and combines features from several
 
 ```rust
 use std::{io, time::Duration};
-use retry::{retry, RetryResult, strategy::ExponentialBackoff};
+use retry_fn::{retry, RetryResult, strategy::ExponentialBackoff};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut count = 0;
@@ -35,7 +35,7 @@ Enable the `tokio-runtime` feature to get access to this function
 
 ```rust
 use std::{io, sync::{Arc, Mutex}};
-use retry::{tokio::retry, RetryResult, strategy::Constant};
+use retry_fn::{tokio::retry, RetryResult, strategy::Constant};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

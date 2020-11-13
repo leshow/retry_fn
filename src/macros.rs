@@ -8,9 +8,9 @@ macro_rules! retry_impl {
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
-        /// use retry::strategy::Constant;
-        /// use retry::RetryResult;
-        /// # use retry::tokio::retry;
+        /// use retry_fn::strategy::Constant;
+        /// use retry_fn::RetryResult;
+        /// # use retry_fn::tokio::retry;
         /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
         /// # tokio::task::spawn_blocking(|| async move {
         /// let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));

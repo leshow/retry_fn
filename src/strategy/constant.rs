@@ -4,7 +4,7 @@
 //! ex. |---|---|---|---|
 //!
 //! ```rust
-//! # use retry::strategy::Constant;
+//! # use retry_fn::strategy::Constant;
 //! # use std::time::Duration;
 //! let mut s = Constant::new(Duration::from_millis(100));
 //! assert_eq!(s.next(), Some(Duration::from_millis(100)));

@@ -4,7 +4,7 @@
 //! ex. base = 2, start = 2ms |--|----|--------|----------------|
 //! Up to some optional maximum duration
 //! ```rust
-//! # use retry::strategy::ExponentialBackoff;
+//! # use retry_fn::strategy::ExponentialBackoff;
 //! # use std::time::Duration;
 //!
 //! let mut s = ExponentialBackoff::from_millis(100);
