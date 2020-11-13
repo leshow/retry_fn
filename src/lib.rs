@@ -27,7 +27,7 @@
 //! # }
 //! ```
 //!
-//! # Using tokio
+//! ## Using tokio
 //! Enable the `tokio-runtime` feature to get access to this function
 //!
 //! ```rust,no_run
