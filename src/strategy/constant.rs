@@ -4,9 +4,9 @@
 //! ex. |---|---|---|---|
 //!
 //! ```rust
-//! # use retry::strategy::ConstantBackoff;
+//! # use retry::strategy::Constant;
 //! # use std::time::Duration;
-//! let mut s = ConstantBackoff::new(Duration::from_millis(100));
+//! let mut s = Constant::new(Duration::from_millis(100));
 //! assert_eq!(s.next(), Some(Duration::from_millis(100)));
 //! assert_eq!(s.next(), Some(Duration::from_millis(100)));
 //! assert_eq!(s.next(), Some(Duration::from_millis(100)));
@@ -15,18 +15,18 @@ use std::time::Duration;
 
 /// Create a new type representing a constant time iterator
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
-pub struct ConstantBackoff {
+pub struct Constant {
     duration: Duration,
 }
 
-impl From<Duration> for ConstantBackoff {
+impl From<Duration> for Constant {
     fn from(duration: Duration) -> Self {
         Self { duration }
     }
 }
 
-impl ConstantBackoff {
-    /// Create a new `ConstantBackoff`
+impl Constant {
+    /// Create a new `Constant`
     pub fn new(duration: Duration) -> Self {
         duration.into()
     }
@@ -52,7 +52,7 @@ impl ConstantBackoff {
     }
 }
 
-impl Iterator for ConstantBackoff {
+impl Iterator for Constant {
     type Item = Duration;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -65,7 +65,7 @@ mod test {
     use super::*;
     #[test]
     fn fixed() {
-        let mut s = ConstantBackoff::new(Duration::from_millis(100));
+        let mut s = Constant::new(Duration::from_millis(100));
         assert_eq!(s.next(), Some(Duration::from_millis(100)));
         assert_eq!(s.next(), Some(Duration::from_millis(100)));
         assert_eq!(s.next(), Some(Duration::from_millis(100)));
@@ -73,7 +73,7 @@ mod test {
 
     #[test]
     fn fixed_secs() {
-        let mut s = ConstantBackoff::new(Duration::from_secs(1));
+        let mut s = Constant::new(Duration::from_secs(1));
         assert_eq!(s.next(), Some(Duration::from_secs(1)));
         assert_eq!(s.next(), Some(Duration::from_secs(1)));
         assert_eq!(s.next(), Some(Duration::from_secs(1)));

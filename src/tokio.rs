@@ -1,6 +1,36 @@
 //! retry impls for tokio
+//!
+//! Enable the `tokio-runtime` feature to get access to this function
+//!
+//! ```rust,no_run
+//! # use std::{io, sync::{Arc, Mutex}};
+//! use retry::{tokio::retry, RetryResult, strategy::Constant};
+//! # fn main() -> Result<(), Box<dyn std::error::Error>> {
+//! # tokio::task::spawn_blocking(|| async move {
+//! let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
+//! let res = retry(Constant::from_millis(100), |op| {
+//!     let count = count.clone();
+//!     async move {
+//!         if op.retries >= 3 {
+//!             RetryResult::<&str, _>::Err(io::Error::new(
+//!                 io::ErrorKind::TimedOut,
+//!                 "timed out",
+//!             ))
+//!         } else {
+//!             *count.lock().unwrap() += 1;
+//!             RetryResult::Retry()
+//!         }
+//!     }
+//! })
+//! .await;
+//! assert_eq!(*count.lock().unwrap(), 3);
+//! assert!(res.is_err());
+//! # });
+//! # Ok(())
+//! # }
+//! ```
 
-retry_impl!(tokio::time::delay_for);
+retry_impl!(tokio::time::sleep);
 
 #[cfg(test)]
 mod test {
@@ -17,7 +47,7 @@ mod test {
     #[tokio::test]
     async fn fail_on_three() -> io::Result<()> {
         let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
-        let res = retry(ConstantBackoff::from_millis(100), |op| {
+        let res = retry(Constant::from_millis(100), |op| {
             let count = count.clone();
             async move {
                 if op.retries >= 3 {
@@ -40,7 +70,7 @@ mod test {
     #[tokio::test]
     async fn pass_eventually() -> io::Result<()> {
         let count = Arc::new(Mutex::new(0));
-        let res = retry(ConstantBackoff::from_millis(100), |op| {
+        let res = retry(Constant::from_millis(100), |op| {
             let count = count.clone();
             async move {
                 if op.retries >= 3 {

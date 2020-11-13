@@ -1,7 +1,8 @@
 //! # retry
 //!
 //! Function for executing retry either as a closure with a std-based sleep (`thread::sleep`) or
-//! using either of the most popular async runtimes. Tokio or async-std
+//! using either of the most popular async runtimes. See `tokio` or `async-std` module for
+//! futures-aware versions.
 //!
 //! ## Sync Example
 //!
@@ -27,37 +28,6 @@
 //! # }
 //! ```
 //!
-//! ## Using tokio
-//! Enable the `tokio-runtime` feature to get access to this function
-//!
-//! ```rust,no_run
-//! # use std::{io, sync::{Arc, Mutex}};
-//! use retry::{tokio::retry, RetryResult, strategy::ConstantBackoff};
-//! # use retry::tokio::retry;
-//! # fn main() -> Result<(), Box<dyn std::error::Error>> {
-//! # tokio::task::spawn_blocking(|| async move {
-//! let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
-//! let res = retry(ConstantBackoff::from_millis(100), |op| {
-//!     let count = count.clone();
-//!     async move {
-//!         if op.retries >= 3 {
-//!             RetryResult::<&str, _>::Err(io::Error::new(
-//!                 io::ErrorKind::TimedOut,
-//!                 "timed out",
-//!             ))
-//!         } else {
-//!             *count.lock().unwrap() += 1;
-//!             RetryResult::Retry()
-//!         }
-//!     }
-//! })
-//! .await;
-//! assert_eq!(*count.lock().unwrap(), 3);
-//! assert!(res.is_err());
-//! # });
-//! # Ok(())
-//! # }
-//! ```
 #![warn(
     missing_debug_implementations,
     missing_docs,
@@ -266,7 +236,7 @@ mod test {
     #[test]
     fn fail_on_three() -> io::Result<()> {
         let mut count = 0;
-        let res = retry(ConstantBackoff::from_millis(100), |op| {
+        let res = retry(Constant::from_millis(100), |op| {
             if op.retries >= 3 {
                 RetryResult::<&str, _>::Err(io::Error::new(io::ErrorKind::TimedOut, "timed out"))
             } else {
@@ -282,7 +252,7 @@ mod test {
     #[test]
     fn pass_eventually() -> io::Result<()> {
         let mut count = 0;
-        let res = retry(ConstantBackoff::from_millis(100), |op| {
+        let res = retry(Constant::from_millis(100), |op| {
             if op.retries >= 3 {
                 RetryResult::<usize, &str>::Ok(5)
             } else {

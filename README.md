@@ -1,7 +1,8 @@
 # retry
 
 Function for executing retry either as a closure with a std-based sleep (`thread::sleep`) or
-using either of the most popular async runtime's. Tokio or async-std
+using either of the most popular async runtime's. Tokio or async-std. Inspired by the other
+retry libraries out there, this is up-to-date and combines features from several.
 
 ## Sync Example
 
@@ -34,12 +35,12 @@ Enable the `tokio-runtime` feature to get access to this function
 
 ```rust
 use std::{io, sync::{Arc, Mutex}};
-use retry::{tokio::retry, RetryResult, strategy::ConstantBackoff};
+use retry::{tokio::retry, RetryResult, strategy::Constant};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
-    let res = retry(ConstantBackoff::from_millis(100), |op| {
+    let res = retry(Constant::from_millis(100), |op| {
         let count = count.clone();
         async move {
             if op.retries >= 3 {

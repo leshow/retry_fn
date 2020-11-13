@@ -8,13 +8,13 @@ macro_rules! retry_impl {
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
-        /// use retry::strategy::ConstantBackoff;
+        /// use retry::strategy::Constant;
         /// use retry::RetryResult;
         /// # use retry::tokio::retry;
         /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
         /// # tokio::task::spawn_blocking(|| async move {
         /// let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
-        /// let res = retry(ConstantBackoff::from_millis(100), |op| {
+        /// let res = retry(Constant::from_millis(100), |op| {
         ///     let count = count.clone();
         ///     async move {
         ///         if op.retries >= 3 {

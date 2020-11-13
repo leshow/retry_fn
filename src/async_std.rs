@@ -19,7 +19,7 @@ mod test {
     fn fail_on_three() {
         task::block_on(async {
             let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));
-            let res = retry(ConstantBackoff::from_millis(100), |op| {
+            let res = retry(Constant::from_millis(100), |op| {
                 let count = count.clone();
                 async move {
                     if op.retries >= 3 {
@@ -43,7 +43,7 @@ mod test {
     fn pass_eventually() {
         task::block_on(async {
             let count = Arc::new(Mutex::new(0));
-            let res = retry(ConstantBackoff::from_millis(100), |op| {
+            let res = retry(Constant::from_millis(100), |op| {
                 let count = count.clone();
                 async move {
                     if op.retries >= 3 {
