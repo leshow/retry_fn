@@ -1,3 +1,5 @@
+//! retry impls for tokio
+
 retry_impl!(tokio::time::delay_for);
 
 #[cfg(test)]
