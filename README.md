@@ -1,4 +1,4 @@
-# retry
+# retry_fn
 
 Function for executing retry either as a closure with a std-based sleep (`thread::sleep`) or
 using either of the most popular async runtime's. Tokio or async-std. Inspired by the other
