@@ -3,8 +3,14 @@ name = "retry_fn"
 version = "0.1.0"
 authors = ["Evan Cameron <cameron.evan@gmail.com>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = """
+A simple retry function with versions for blocking or non-blocking, tokio or async-std
+"""
+categories = ["algorithms", "asynchronous"]
+license = "MIT"
+readme = "README.md"
+keywords = ["retry", "tokio", "async"]
+repository = "https://github.com/leshow/retry"
 
 [dependencies]
 tokio = { version = "0.3", features = ["time"], optional = true }
@@ -12,11 +18,11 @@ async-std = { version = "1.7", optional = true }
 
 [dev-dependencies]
 version-sync = "0.9"
-tokio-test = { version = "0.2" }
+tokio-test = { version = "0.3" }
 tokio = { version = "0.3", features = ["full"] }
 
 [features]
-default = ["tokio-runtime"]
+default = []
 tokio-runtime = ["tokio"]
 async-runtime = ["async-std"]
 
