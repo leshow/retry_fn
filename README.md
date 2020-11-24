@@ -1,5 +1,9 @@
 # retry_fn
 
+![Build Status](https://github.com/leshow/retry_fn/workflows/.github/workflows/actions.yml/badge.svg)
+[![Crate](https://img.shields.io/crates/v/retry_fn.svg)](https://crates.io/crates/retry_fn)
+[![API](https://docs.rs/retry_fn/badge.svg)](https://docs.rs/retry_fn)
+
 Function for executing retry either as a closure with a std-based sleep (`thread::sleep`) or
 using either of the most popular async runtime's. Tokio or async-std. Inspired by the other
 retry libraries out there, this is up-to-date and combines features from several.
