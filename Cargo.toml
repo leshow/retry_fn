@@ -26,3 +26,5 @@ default = []
 tokio-runtime = ["tokio"]
 async-runtime = ["async-std"]
 
+[badges]
+github-actions = { repository = "leshow/retry_fn", workflow = "actions" }
