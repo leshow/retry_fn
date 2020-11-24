@@ -1,6 +1,6 @@
 # retry_fn
 
-![Build Status](https://github.com/leshow/retry_fn/workflows/.github/workflows/actions.yml/badge.svg)
+[![Build Status](https://github.com/leshow/retry_fn/workflows/Actions/badge.svg)](https://github.com/leshow/retry_fn/actions)
 [![Crate](https://img.shields.io/crates/v/retry_fn.svg)](https://crates.io/crates/retry_fn)
 [![API](https://docs.rs/retry_fn/badge.svg)](https://docs.rs/retry_fn)
 
