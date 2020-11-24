@@ -1,8 +1,20 @@
+#![doc(html_root_url = "https://docs.rs/retry_fn/0.1.0")]
+#![warn(
+    missing_debug_implementations,
+    missing_docs,
+    missing_copy_implementations,
+    rust_2018_idioms,
+    unreachable_pub,
+    non_snake_case,
+    non_upper_case_globals
+)]
+#![deny(broken_intra_doc_links)]
+#![allow(clippy::cognitive_complexity)]
 //! # retry
 //!
-//! Function for executing retry either as a closure with a std-based sleep (`thread::sleep`) or
-//! using either of the most popular async runtimes. See `tokio` or `async-std` module for
-//! futures-aware versions.
+//! Function for executing retry either as a closure with a std-based sleep
+//! (`thread::sleep`) or using either of the most popular async runtimes. See
+//! `tokio` or `async-std` module for futures-aware versions.
 //!
 //! ## Sync Example
 //!
@@ -27,7 +39,6 @@
 //! Ok(())
 //! # }
 //! ```
-//!
 #![warn(
     missing_debug_implementations,
     missing_docs,
@@ -69,8 +80,8 @@ pub struct RetryOp {
 
 /// What to do with the current result of the function
 ///
-/// `Retry` will execute the function again, `Err(E)` will return an error with E,
-/// `Ok(T)` will return success with T
+/// `Retry` will execute the function again, `Err(E)` will return an error with
+/// E, `Ok(T)` will return success with T
 #[derive(Debug, Clone)]
 pub enum RetryResult<T, E> {
     /// try again
@@ -153,8 +164,8 @@ where
 /// ```
 ///
 /// # Returns
-/// If successful, return `Ok`, otherwise return `Retry` to try again or `Err` to exit
-/// with an error
+/// If successful, return `Ok`, otherwise return `Retry` to try again or `Err`
+/// to exit with an error
 pub fn retry_immediate<F, T, E>(f: F) -> Result<T, RetryErr<E>>
 where
     F: FnMut(RetryOp) -> RetryResult<T, E>,
@@ -187,8 +198,8 @@ where
 /// ```
 ///
 /// # Returns
-/// If successful, return `Ok`, otherwise return `Retry` to try again or `Err` to exit
-/// with an error
+/// If successful, return `Ok`, otherwise return `Retry` to try again or `Err`
+/// to exit with an error
 pub fn retry<I, F, T, E>(iter: I, mut f: F) -> Result<T, RetryErr<E>>
 where
     I: IntoIterator<Item = Duration>,

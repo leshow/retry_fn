@@ -3,8 +3,8 @@ macro_rules! retry_impl {
         use crate::{RetryErr, RetryOp, RetryResult};
         use std::{future::Future, time::Duration};
 
-        /// Retry a future based on an iterator over Duration. A timer will be run for each
-        /// item in the iterator.
+        /// Retry a future based on an iterator over Duration. A timer will be run for
+        /// each item in the iterator.
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
@@ -37,8 +37,8 @@ macro_rules! retry_impl {
         /// ```
         ///
         /// # Returns
-        /// If successful, return `Ok`, otherwise return `Retry` to try again or `Err` to exit
-        /// with an error
+        /// If successful, return `Ok`, otherwise return `Retry` to try again or `Err`
+        /// to exit with an error
         pub async fn retry<I, F, Fut, T, E>(iter: I, mut f: F) -> Result<T, RetryErr<E>>
         where
             I: IntoIterator<Item = Duration>,

@@ -1,7 +1,7 @@
 //! exponential backoff
 //!
-//! Exponential time backoff, starting at some time, increase by multiplying by some base
-//! ex. base = 2, start = 2ms |--|----|--------|----------------|
+//! Exponential time backoff, starting at some time, increase by multiplying by
+//! some base ex. base = 2, start = 2ms |--|----|--------|----------------|
 //! Up to some optional maximum duration
 //! ```rust
 //! # use retry_fn::strategy::ExponentialBackoff;
