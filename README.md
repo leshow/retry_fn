@@ -6,7 +6,7 @@
 
 Function for executing retry either as a closure with a std-based sleep (`thread::sleep`) or
 using either of the most popular async runtime's. Tokio or async-std. Inspired by the other
-retry libraries out there, this is up-to-date and combines features from several.
+retry libraries out there, the desire is to keep this up-to-date and combine features from several.
 
 ## Sync Example
 

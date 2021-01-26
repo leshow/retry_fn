@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/retry_fn/0.1.0")]
+#![doc(html_root_url = "https://docs.rs/retry_fn/0.2.0")]
 //! # retry
 //!
 //! Function for executing retry either as a closure with a std-based sleep
