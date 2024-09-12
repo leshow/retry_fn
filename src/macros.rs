@@ -127,7 +127,10 @@ macro_rules! retry_impl {
             for dur in iter.into_iter() {
                 match (&mut f).await {
                     RetryResult::Retry() => {
+                        #[cfg(feature = "tokio-runtime")]
                         tokio::time::sleep(dur).await;
+                        #[cfg(not(feature = "tokio-runtime"))]
+                        async_std::task::sleep(dur).await;
                         total_delay += dur;
                         count += 1;
                     }
