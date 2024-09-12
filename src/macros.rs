@@ -8,8 +8,7 @@ macro_rules! retry_impl {
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
-        /// use retry_fn::strategy::Constant;
-        /// use retry_fn::RetryResult;
+        /// use retry_fn::{strategy::Constant, RetryResult};
         /// # use retry_fn::tokio::retry;
         /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
         /// # tokio::task::spawn_blocking(|| async move {
@@ -84,8 +83,7 @@ macro_rules! retry_impl {
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
-        /// use retry_fn::strategy::Constant;
-        /// use retry_fn::RetryResult;
+        /// use retry_fn::{strategy::Constant, RetryResult};
         /// # use retry_fn::tokio::retry_unpin;
         /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
         /// # tokio::task::spawn_blocking(|| async move {
@@ -105,8 +103,7 @@ macro_rules! retry_impl {
         ///     }
         /// };
         /// tokio::pin!(fut);
-        /// let res = retry_unpin(Constant::from_millis(100), fut)
-        /// .await;
+        /// let res = retry_unpin(Constant::from_millis(100), fut).await;
         /// assert_eq!(*count.lock().unwrap(), 3);
         /// assert!(res.is_err());
         /// # });
@@ -127,7 +124,10 @@ macro_rules! retry_impl {
             for dur in iter.into_iter() {
                 match (&mut f).await {
                     RetryResult::Retry() => {
+                        #[cfg(feature = "tokio-runtime")]
                         tokio::time::sleep(dur).await;
+                        #[cfg(not(feature = "tokio-runtime"))]
+                        async_std::task::sleep(dur).await;
                         total_delay += dur;
                         count += 1;
                     }

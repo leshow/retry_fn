@@ -4,7 +4,7 @@
 //!
 //! ```rust,no_run
 //! # use std::{io, sync::{Arc, Mutex}};
-//! use retry_fn::{tokio::retry, RetryResult, strategy::Constant};
+//! use retry_fn::{tokio::retry, strategy::Constant, RetryResult};
 //! # fn main() -> Result<(), Box<dyn std::error::Error>> {
 //! # tokio::task::spawn_blocking(|| async move {
 //! let count: Arc<Mutex<i32>> = Arc::new(Mutex::new(0));

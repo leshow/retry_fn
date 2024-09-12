@@ -24,10 +24,22 @@ jobs:
           toolchain: ${{ matrix.rust }}
           override: true
 
-      - name: Run cargo check
+      - name: cargo check
         uses: actions-rs/cargo@v1
         with:
           command: check
+
+      - name: cargo check tokio
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --features tokio-runtime
+
+      - name: cargo check async-std
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --features async-runtime
 
   test:
     name: Test Suite
@@ -61,7 +73,6 @@ jobs:
         rust:
           - stable
           - beta
-          - nightly
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
