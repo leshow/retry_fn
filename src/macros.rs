@@ -8,8 +8,7 @@ macro_rules! retry_impl {
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
-        /// use retry_fn::strategy::Constant;
-        /// use retry_fn::RetryResult;
+        /// use retry_fn::{strategy::Constant, RetryResult};
         /// # use retry_fn::tokio::retry;
         /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
         /// # tokio::task::spawn_blocking(|| async move {
@@ -84,8 +83,7 @@ macro_rules! retry_impl {
         ///
         /// ```rust,no_run
         /// # use std::{io, sync::{Arc, Mutex}};
-        /// use retry_fn::strategy::Constant;
-        /// use retry_fn::RetryResult;
+        /// use retry_fn::{strategy::Constant, RetryResult};
         /// # use retry_fn::tokio::retry_unpin;
         /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
         /// # tokio::task::spawn_blocking(|| async move {
