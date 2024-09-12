@@ -9,7 +9,7 @@
 //!
 //! ```rust,no_run
 //! # use std::{io, time::Duration};
-//! use retry_fn::{retry, RetryResult, strategy::ExponentialBackoff};
+//! use retry_fn::{retry, strategy::ExponentialBackoff, RetryResult};
 //! # fn main() -> Result<(), Box<dyn std::error::Error>> {
 //! let mut count = 0;
 //! let res = retry(ExponentialBackoff::new(Duration::from_secs(2)), |op| {
@@ -167,7 +167,7 @@ where
 ///
 /// ```rust,no_run
 /// # use std::{io, time::Duration};
-/// use retry_fn::{retry, RetryResult, strategy::ExponentialBackoff};
+/// use retry_fn::{retry, strategy::ExponentialBackoff, RetryResult};
 /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
 /// let mut count = 0;
 /// let res = retry(ExponentialBackoff::new(Duration::from_secs(2)), |op| {

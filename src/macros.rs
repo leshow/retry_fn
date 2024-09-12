@@ -103,8 +103,7 @@ macro_rules! retry_impl {
         ///     }
         /// };
         /// tokio::pin!(fut);
-        /// let res = retry_unpin(Constant::from_millis(100), fut)
-        /// .await;
+        /// let res = retry_unpin(Constant::from_millis(100), fut).await;
         /// assert_eq!(*count.lock().unwrap(), 3);
         /// assert!(res.is_err());
         /// # });
